@@ -18,7 +18,9 @@ export class Director {
     }
 
     createPencil() {
+        // 最低高度
         const minTop = DataStore.getInstance().canvas.height / 8;
+        // 最高高度
         const maxTop = DataStore.getInstance().canvas.height / 2;
         const top = minTop + Math.random() * (maxTop - minTop);
         this.dataStore.get('pencils').push(new UpPencil(top));
@@ -103,36 +105,38 @@ export class Director {
         if (!this.isGameOver) {
             this.dataStore.get('background').draw();
 
-            // const pencils = this.dataStore.get('pencils');
-            // if (pencils[0].x + pencils[0].width <= 0 &&
-            //     pencils.length === 4) {
-            //     pencils.shift();
-            //     pencils.shift();
-            //     this.dataStore.get('score').isScore = true;
-            // }
+            const pencils = this.dataStore.get('pencils');
+            // 销毁越界铅笔
+            // 铅笔的右侧边界刚刚好超过了canvas的宽度
+            if (pencils[0].x + pencils[0].width <= 0 &&
+                pencils.length === 4) {
+                pencils.shift();
+                pencils.shift();
+                // this.dataStore.get('score').isScore = true;
+            }
 
-            // if (pencils[0].x <= (DataStore.getInstance().canvas.width - pencils[0].width) / 2 &&
-            //     pencils.length === 2) {
-            //     this.createPencil();
-            // }
+            if (pencils[0].x <= (DataStore.getInstance().canvas.width - pencils[0].width) / 2 &&
+                pencils.length === 2) {
+                this.createPencil();
+            }
 
-            // this.dataStore.get('pencils').forEach(function (value) {
-            //     value.draw();
-            // });
+            this.dataStore.get('pencils').forEach(function (value) {
+                value.draw();
+            });
 
             this.dataStore.get('land').draw();
             // this.dataStore.get('score').draw();
-            // this.dataStore.get('birds').draw();
+            this.dataStore.get('birds').draw();
 
             let timer = requestAnimationFrame(() => this.run());
             this.dataStore.put('timer', timer);
         } else {
             console.log('游戏结束');
-            this.dataStore.get('startButton').draw();
+            // this.dataStore.get('startButton').draw();
             cancelAnimationFrame(this.dataStore.get('timer'));
             this.dataStore.destroy();
             //触发微信小游戏垃圾回收
-            wx.triggerGC();
+            // wx.triggerGC();
         }
     }
 }

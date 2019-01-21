@@ -14,7 +14,6 @@ export class Main {
     constructor() {
         // this.canvas = wx.createCanvas();
         this.canvas = document.getElementById('game_canvas')
-        console.log(this.canvas);
         this.ctx = this.canvas.getContext('2d');
         this.dataStore = DataStore.getInstance();
         this.director = Director.getInstance();
@@ -58,7 +57,7 @@ export class Main {
             .put('startButton', StartButton);
         // this.registerEvent();
         //创建铅笔要在游戏逻辑运行之前
-        // this.director.createPencil();
+        this.director.createPencil();
         this.director.run();
     }
 

@@ -30,41 +30,43 @@ export class Birds extends Sprite {
         this.birdsHeight = [birdHeight, birdHeight, birdHeight];
         this.y = [birdY, birdY, birdY];
         this.index = 0;
+        // count循环小鸟个数
         this.count = 0;
         this.time = 0;
     }
 
-    // draw() {
-    //     //切换三只小鸟的速度
-    //     const speed = 0.2;
-    //     this.count = this.count + speed;
-    //     //0,1,2
-    //     if (this.index >= 2) {
-    //         this.count = 0;
-    //     }
-    //     //减速器的作用
-    //     this.index = Math.floor(this.count);
+    draw() {
+        //切换三只小鸟的速度
+        const speed = 0.2;
+        // const speed = 1;
+        this.count = this.count + speed;
+        //0,1,2
+        if (this.index >= 2) {
+            this.count = 0;
+        }
+        //减速器的作用
+        this.index = Math.floor(this.count);
 
-    //     //模拟重力加速度
-    //     const g = 0.98 / 2.4;
-    //     //向上移动一丢丢的偏移量
-    //     const offsetUp = 30;
-    //     //小鸟的位移
-    //     const offsetY = (g * this.time * (this.time - offsetUp)) / 2;
+        //模拟重力加速度
+        const g = 0.98 / 2.4;
+        //向上移动一丢丢的偏移量
+        const offsetUp = 30;
+        //小鸟的位移
+        const offsetY = (g * this.time * (this.time - offsetUp)) / 2;
 
-    //     for (let i = 0; i <= 2; i++) {
-    //         this.birdsY[i] = this.y[i] + offsetY;
-    //     }
-    //     this.time++;
+        for (let i = 0; i <= 2; i++) {
+            this.birdsY[i] = this.y[i] + offsetY;
+        }
+        this.time++;
 
-    //     super.draw(
-    //         this.img,
-    //         this.clippingX[this.index], this.clippingY[this.index],
-    //         this.clippingWidth[this.index], this.clippingHeight[this.index],
-    //         this.birdsX[this.index], this.birdsY[this.index],
-    //         this.birdsWidth[this.index], this.birdsHeight[this.index]
-    //     );
-    // }
+        super.draw(
+            this.img,
+            this.clippingX[this.index], this.clippingY[this.index],
+            this.clippingWidth[this.index], this.clippingHeight[this.index],
+            this.birdsX[this.index], this.birdsY[this.index],
+            this.birdsWidth[this.index], this.birdsHeight[this.index]
+        );
+    }
 
 
 }

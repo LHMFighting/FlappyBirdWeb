@@ -90,18 +90,18 @@ export class Director {
         //加分逻辑
         if (birds.birdsX[0] > pencils[0].x + pencils[0].width
             && score.isScore) {
-            wx.vibrateShort({
-                success: function () {
-                    console.log('振动成功');
-                }
-            });
+            // wx.vibrateShort({
+            //     success: function () {
+            //         console.log('振动成功');
+            //     }
+            // });
             score.isScore = false;
             score.scoreNumber++;
         }
     }
 
     run() {
-        // this.check();
+        this.check();
         if (!this.isGameOver) {
             this.dataStore.get('background').draw();
 
@@ -112,7 +112,7 @@ export class Director {
                 pencils.length === 4) {
                 pencils.shift();
                 pencils.shift();
-                // this.dataStore.get('score').isScore = true;
+                this.dataStore.get('score').isScore = true;
             }
 
             if (pencils[0].x <= (DataStore.getInstance().canvas.width - pencils[0].width) / 2 &&
@@ -125,14 +125,14 @@ export class Director {
             });
 
             this.dataStore.get('land').draw();
-            // this.dataStore.get('score').draw();
+            this.dataStore.get('score').draw();
             this.dataStore.get('birds').draw();
 
             let timer = requestAnimationFrame(() => this.run());
             this.dataStore.put('timer', timer);
         } else {
             console.log('游戏结束');
-            // this.dataStore.get('startButton').draw();
+            this.dataStore.get('startButton').draw();
             cancelAnimationFrame(this.dataStore.get('timer'));
             this.dataStore.destroy();
             //触发微信小游戏垃圾回收

@@ -55,25 +55,16 @@ export class Main {
             .put('birds', Birds)
             .put('score', Score)
             .put('startButton', StartButton);
-        // this.registerEvent();
+        this.registerEvent();
         //创建铅笔要在游戏逻辑运行之前
         this.director.createPencil();
         this.director.run();
     }
 
     registerEvent() {
-        // this.canvas.addEventListener('touchstart', e => {
-        //     //屏蔽掉JS的事件冒泡
-        //     e.preventDefault();
-        //     if (this.director.isGameOver) {
-        //         console.log('游戏开始');
-        //         this.init();
-        //     } else {
-        //         this.director.birdsEvent();
-        //     }
-        // });
-
-        wx.onTouchStart(() => {
+        this.canvas.addEventListener('touchstart', e => {
+            //屏蔽掉JS的事件冒泡
+            e.preventDefault();
             if (this.director.isGameOver) {
                 console.log('游戏开始');
                 this.init();
@@ -81,5 +72,14 @@ export class Main {
                 this.director.birdsEvent();
             }
         });
+
+        // wx.onTouchStart(() => {
+        //     if (this.director.isGameOver) {
+        //         console.log('游戏开始');
+        //         this.init();
+        //     } else {
+        //         this.director.birdsEvent();
+        //     }
+        // });
     }
 }
